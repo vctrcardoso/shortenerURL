@@ -18,9 +18,9 @@
 
 <body>
 
-<?php if (session()->get('sucesso')) : ?>
+<?php if (session()->get('success')) : ?>
     <script type="text/javascript">
-      alert("<?= session()->get('sucesso') ?>");
+      alert("<?= session()->get('success') ?>");
     </script>
   <?php endif; ?>
 
@@ -52,13 +52,13 @@
       </div>
     </div>
 
-    <p class="text-gray font-weight-bold text-uppercase px-4 small pb-4 mb-0">Main</p>
+    <p class="text-gray font-weight-bold text-uppercase px-4 small pb-4 mb-0">Menu</p>
 
     <ul class="nav flex-column bg-white mb-0">
       <li class="nav-item">
         <a href="admin" id="conteudo" class="nav-link text-dark font-italic bg-light">
           <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
-          Home
+          Página Inicial
         </a>
       </li>
       <li class="nav-item">
@@ -122,7 +122,7 @@
                               <th class="text-center">Url Original</th>
                               <th class="text-center">Url Encurtada</th>
                               <th class="text-center">Data da criação</th>
-                              <th class="text-center">Action</th>
+                              <th class="text-center">Ação</th>
                             </tr>
                          
                        
@@ -134,12 +134,12 @@
 
                                 <tr>
                                   <td><?php echo $url['url_orig']; ?> </td>
-                                  <td> <a href="<?= site_url('url/' . $url['url_short']) ?>" target="_blank"><?= site_url('url/' . $url['url_short']) ?> </td>
+                                  <td> <a href="<?= site_url('url/' . $url['url_short']) ?>" target="_blank"><?= site_url('url/'. $url['url_short']) ?> </td>
                                   <td><?php echo $url['created_at']; ?> </td>
 
                                   <td class="text-center">
 
-                                    <a href="<?php echo base_url('deletar/'. $url['id_url'])?>" class="btn btn-danger">Excluir</a>
+                                    <a href="<?=base_url('delete/'. $url['id_url'])?>" class="btn btn-danger btn-sm">Excluir</a>
                                   </td>
 
                                   </tr>

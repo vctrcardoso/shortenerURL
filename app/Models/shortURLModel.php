@@ -28,7 +28,7 @@ class shortURLModel extends Model
     }
 
 
-    public function Desencurta($url_short)
+    public function Unshorten($url_short)
     {
 
 
@@ -54,7 +54,7 @@ class shortURLModel extends Model
         }
     }
 
-    public function Apagar($id)
+    public function Destroy($id)
     {
         $this->where('id_url', $id);
         $this->delete();

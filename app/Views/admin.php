@@ -54,7 +54,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="meuslinks"  class="nav-link text-dark font-italic">
+        <a href="<?= route_to('geturls'); ?>"  class="nav-link text-dark font-italic">
           <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
           Minhas URLs
         </a>
@@ -73,13 +73,13 @@
 
   <!-- body -->
 
-  <?php if (session()->get('sucesso')) : ?>
+  <?php if (session()->get('success')) : ?>
     <script type="text/javascript">
-      alert("<?= session()->get('sucesso') ?>");
+      alert("<?= session()->get('success') ?>");
     </script>
   <?php endif; ?>
 
-  <?= form_open(route_to('encurtamento')) ?>
+  <?= form_open(route_to('shorten')) ?>
 
 
   <div class="page-content p-5" id="content" id="newConteudo">
@@ -87,7 +87,7 @@
       <div class="row justify-content-center">
 
         <div class="jumbotron bg-transparent text-center ">
-          <h1 class="display-4 ">Encurtamento de URL's e links</h1>
+          <h1 class="display-4 ">Encurtamento de URL's</h1>
 
 
 
@@ -98,7 +98,7 @@
 
 
 
-          <button class="btn btn-lg btn-success btn-block" href="<?= route_to('encurtamento') ?>">Enviar</button>
+          <button class="btn btn-lg btn-success btn-block" href="<?= route_to('shorten') ?>">Enviar</button>
 
 
         </div>

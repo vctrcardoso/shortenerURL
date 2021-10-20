@@ -56,7 +56,7 @@
 
 
 <body class="text-center">
-  <?= form_open(route_to('loginpage'), ['class' => 'form-signin']) ?>
+  <?= form_open(route_to('login'), ['class' => 'form-signin']) ?>
 
   <?php if (isset($error) && $error === true) : ?>
     <?php foreach ($errors as $error) : ?>
@@ -74,7 +74,7 @@
   </label>
   </div>
   <p>
-    <a href="<?= route_to('registrarpage'); ?>">Não tem cadastro ?</a>
+    <a href="<?= route_to('register'); ?>">Não tem cadastro ?</a>
   </p>
   <button class="btn btn-lg btn-success btn-block" type="submit">Entrar</button>
   <p class="mt-5 mb-3 text-muted">&copy; 2020</p>

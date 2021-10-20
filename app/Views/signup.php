@@ -70,7 +70,7 @@
         </div>
       </div>
     <?php endif; ?>
-    <a href="<?= route_to('loginpage'); ?>">Já possui uma conta?</a>
+    <a href="<?= route_to('login'); ?>">Já possui uma conta?</a>
   </p>
   <button class="btn btn-lg btn-success btn-block" type="submit">Registrar</button>
 

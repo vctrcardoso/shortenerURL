@@ -28,7 +28,7 @@ $("login").click(function(){
   <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
   
   <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class=" btn btn-success btn-lg " href="<?= route_to('loginpage');?>" role="button">Login</a>
+  <a class=" btn btn-success btn-lg " href="<?= route_to('login');?>" role="button">Login</a>
 </div>
 
 

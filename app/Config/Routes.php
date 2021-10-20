@@ -36,19 +36,19 @@ $routes->setAutoRoute(true);
 #$routes->get('/', 'Home::index');
 
 $routes->group('', function ($routes) {
-	$routes->add('',      'Home::index',  ['as' => 'homepage',]);
-	$routes->add('login', 'Login::login', ['as' => 'loginpage', 'filter' => 'authenticator:logout',]);
-	$routes->add('registro', 'registro::registrar', ['as' => 'registrarpage',]);
-	$routes->add('admin',      'Home::admin',  ['as' => 'inicial', 'filter' => 'Login:restrito']);
+	$routes->add('',      'Home::index',  ['as' => 'home',]);
+	$routes->add('login', 'Auth/AuthController::login', ['as' => 'login', 'filter' => 'authenticator:logout',]);
+	$routes->add('register', 'Auth/AuthController::register', ['as' => 'register',]);
+	$routes->add('admin',      'Home::admin',  ['as' => 'index', 'filter' => 'Login:restrito']);
 	$routes->add('send',      'ForgotPass::Sendmail',  ['as' => 'sendpage']);
 	$routes->add('forgot',      'ForgotPass::index',  ['as' => 'forgotpage']);
 /* 	$routes->add('novasenha',      'Home::NewPassword',  ['as' => 'newpass']); */
 	$routes->add('novasenha/(:hash)', 'ForgotPass::NewPassword/$1');
 	$routes->add('senha',      'ForgotPass::UpdatePass',  ['as' => 'updatepage']);
-	$routes->add('encurta',      'Home::Encurta',  ['as' => 'encurtamento']);
-	$routes->add('meuslinks',      'Login::URLs',  ['as' => 'linkpage']);
-	$routes->add('url/(:any)', 'Home::Retornar/$1');
-	$routes->add('deletar/(:num)', 'Home::excluir/$1');
+	$routes->add('shorten',      'ShortUrl/ShortenerController::Shorten',  ['as' => 'shorten']);
+	$routes->add('getUrls',      'ShortUrl/ShortenerController::getUrls',  ['as' => 'geturls']);
+	$routes->add('url/(:any)', 'ShortUrl\ShortenerController::Redirect/$1');
+	$routes->add('delete/(:num)', 'ShortUrl\ShortenerController::Destroy/$1');
 
 
 });
