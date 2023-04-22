@@ -14,7 +14,7 @@ class Authenticator implements FilterInterface
 
 		if ($type === 'login') {
 			if (session()->id === null && session()->nome === null && session()->email === null) {
-				return redirect('loginpage');
+				return redirect('login');
 			}
 		}
 
@@ -22,7 +22,7 @@ class Authenticator implements FilterInterface
 		{
 			if (session()->id !== null && session()->nome !== null && session()->email !== null)
 			{
-				return redirect('homepage');
+				return redirect('home');
 			}
 		}
 

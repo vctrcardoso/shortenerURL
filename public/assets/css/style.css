@@ -105,9 +105,13 @@ body {
     border-color: #1CB94A;
 }
 
+.text-success {
+    color: #029f5b;
+}
+
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;
-    background-color: #1CA347;
-    border-color: #1CA347;
+    background-color: #029f5b;
+    border-color: #029f5b;
 }

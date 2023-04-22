@@ -14,7 +14,7 @@
   
 <nav class="navbar navbar-light bg-white">
   <a class="navbar-brand" href="#" >
-    <img  src="<?= base_url("assets/img/logo2.png");?>" alt="ENCURTA!URL"> 
+    <img src="<?= base_url("assets/img/logo2.png");?>" alt="ENCURTA!URL"> 
     
   </a>
   

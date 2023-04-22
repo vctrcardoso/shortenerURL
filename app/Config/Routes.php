@@ -2,18 +2,10 @@
 
 namespace Config;
 
-use App\Models\ForgotModel;
-
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
-// Load the system's routing file first, so that the app and ENVIRONMENT
-// can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
-	require SYSTEMPATH . 'Config/Routes.php';
-}
-
-/**
+/*
  * --------------------------------------------------------------------
  * Router Setup
  * --------------------------------------------------------------------
@@ -24,8 +16,13 @@ $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
+// The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
+// where controller filters or CSRF protection are bypassed.
+// If you don't want to define all routes, please use the Auto Routing (Improved).
+// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
+// $routes->setAutoRoute(false);
 
-/**
+/*
  * --------------------------------------------------------------------
  * Route Definitions
  * --------------------------------------------------------------------
@@ -33,29 +30,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-#$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index');
 
-$routes->group('', function ($routes) {
-	$routes->add('',      'Home::index',  ['as' => 'home',]);
-	$routes->add('login', 'Auth/AuthController::login', ['as' => 'login', 'filter' => 'authenticator:logout',]);
-	$routes->add('register', 'Auth/AuthController::register', ['as' => 'register',]);
-	$routes->add('admin',      'Home::admin',  ['as' => 'index', 'filter' => 'Login:restrito']);
-	$routes->add('send',      'ForgotPass::Sendmail',  ['as' => 'sendpage']);
-	$routes->add('forgot',      'ForgotPass::index',  ['as' => 'forgotpage']);
-/* 	$routes->add('novasenha',      'Home::NewPassword',  ['as' => 'newpass']); */
-	$routes->add('novasenha/(:hash)', 'ForgotPass::NewPassword/$1');
-	$routes->add('senha',      'ForgotPass::UpdatePass',  ['as' => 'updatepage']);
-	$routes->add('shorten',      'ShortUrl/ShortenerController::Shorten',  ['as' => 'shorten']);
-	$routes->add('getUrls',      'ShortUrl/ShortenerController::getUrls',  ['as' => 'geturls']);
-	$routes->add('url/(:any)', 'ShortUrl\ShortenerController::Redirect/$1');
-	$routes->add('delete/(:num)', 'ShortUrl\ShortenerController::Destroy/$1');
-
-
-});
-
-
-
-/**
+/*
  * --------------------------------------------------------------------
  * Additional Routing
  * --------------------------------------------------------------------
@@ -68,11 +45,33 @@ $routes->group('', function ($routes) {
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+
+ $routes->group('', function ($routes) {
+	$routes->add('',      'Home::index',  ['as' => 'home',]);
+	$routes->add('login', 'Auth\AuthController::login', ['as' => 'login']);
+	$routes->add('register', 'Auth\AuthController::register', ['as' => 'register',]);
+	$routes->post('actionregister','Auth\AuthController::actionRegister', ['as' => 'actionRegister']);
+	$routes->post('actionlogin','Auth\AuthController::actionLogin', ['as' => 'actionLogin']);
+	$routes->add('admin',      'Home::admin',  ['as' => 'index', 'filter' => 'authenticator:login']);
+	$routes->add('send',      'ForgotPass::Sendmail',  ['as' => 'sendpage']);
+	$routes->add('forgot',      'ForgotPass::index',  ['as' => 'forgotpage']);
+/* 	$routes->add('novasenha',      'Home::NewPassword',  ['as' => 'newpass']); */
+	$routes->add('novasenha/(:hash)', 'ForgotPass::NewPassword/$1');
+	$routes->add('senha',      'ForgotPass::UpdatePass',  ['as' => 'updatepage']);
+	$routes->add('shorten',      'Short\ShortenerController::Shorten',  ['as' => 'shorten']);
+	$routes->add('viewmyurls',      'Short\ShortenerController::viewMyUrls',  ['as' => 'myurls']);
+	$routes->get('getmyurls',      'Short\ShortenerController::getMyUrls',  ['as' => 'getmyurls']);
+	$routes->add('url/(:any)', 'Short\ShortenerController::Redirect/$1');
+	$routes->add('delete/(:num)', 'Short\ShortenerController::Destroy/$1');
+
+
+});
+
+if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
 
 $routes->add('logout', function () {
 	session()->destroy();
-	return redirect('loginpage');
+	return redirect('login');
 });
